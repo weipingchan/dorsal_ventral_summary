@@ -1,12 +1,5 @@
 function dorsal_ventral_summary(grid_mat_directory, Code_directory, Result_directory, group_list_name, preference_list_name)
-% grid_mat_directory='D:\Milk desk\Dropbox\Harvard\Coloration_research\Drawer_result\tribal_level_dorsal-ventral_wing_parameters';
-% Group_list_name='barcode_species_list_Feb_2020-f2_group_barcode_list.json';
-% Preference_list_name='tribal_wing-seg_final_inspect_spp_preference_table_done_April_2020.csv';
-% Code_directory='D:\Milk desk\Dropbox\Harvard\Coloration_research\Multi_spectra_processing/shape_analysis_v3';
-% Result_directory='D:\Milk desk\Dropbox\Harvard\Coloration_research\shp_phy';
-
-%Convert double quotes to single quotes for the matlab version prior than
-%2017
+%Convert double quotes to single quotes for the matlab version prior than 2017
 if size(grid_mat_directory,2)==1 grid_mat_directory=grid_mat_directory{1};, end;
 if size(Code_directory,2)==1 Code_directory=Code_directory{1};, end;
 if size(Result_directory,2)==1 Result_directory=Result_directory{1};, end;
@@ -33,7 +26,6 @@ if size(preference_list_name,2)==1 preference_list_name=preference_list_name{1};
     disp(['The file including barcodes in each group  [', group_list_name,'] is found.']);
     group_list_field=fieldnames(group_list);
     for fieldID=1:length(group_list_field)
-    %fieldID = 6, 7, 88 as an example
     group_barcodes=remove_duplicate_strings(group_list.(group_list_field{fieldID})); %Removeing duplicates
     groupName=strrep(group_list_field{fieldID},'0x2D_','');
         try
