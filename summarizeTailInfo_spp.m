@@ -1,6 +1,5 @@
 function [having_tail, firstColLastRow_probability_spp, firstColLastRow_Len_summary_mean_spp, firstColLastRow_Cur_summary_mean_spp, firstColLastRow_Len_summary_rng_spp, firstColLastRow_Cur_summary_rng_spp, firstColLastRow_allLen_cm_spp]=summarizeTailInfo_spp(spp_tail_dat_L, spp_tail_dat_R, scale_L_spp, scale_R_spp, scaling_factor_spp, mat_res, length_threshold)
 %summarize tail information
-%length_threshold=5; %5 px (~0.1mm) the threshold to define a tail
 
 scaling_factor_listH_L=[scaling_factor_spp(:,1),scaling_factor_spp(:,3)]; %dorsal and ventral of left hind wing
 scaling_factor_listH_R=[scaling_factor_spp(:,1),scaling_factor_spp(:,3)]; %dorsal and ventral of right hind wing
@@ -10,7 +9,6 @@ tailPart0=spp_tail_dat_R;
 all_tail_R_flip=cell(0,2);
 if ~isempty(tailPart0)
     for sideID=1:2
-        %disp(num2str(sideID));
         tailPart=tailPart0{sideID};
         tailPart_flip=cell(0,length(tailPart));
         if ~isempty(tailPart)
@@ -20,7 +18,6 @@ if ~isempty(tailPart0)
                 tailN=nnz(cellfun(@iscell, tailPart));
             end
             for tID2=1:tailN
-                %disp(num2str(tID2));
                 tailTail=tailPart{tID2};
                 tailTailBase=tailTail{1};
                 tailTailBase_flip=[tailTailBase(:,1), mat_res+2-tailTailBase(:,2)];
@@ -63,6 +60,5 @@ firstColLastRow_Cur_summary_rng_spp(isnan(firstColLastRow_Cur_summary_rng_spp))=
 firstColLastRow_allLen2(round(firstColLastRow_allLen2,1)<length_threshold)=NaN; %replace small value by NaN, and neglect those length less than 5 px (~0.1mm)
 firstColLastRow_allLen2(~isnan(firstColLastRow_allLen2))=1; %replace large value by 1
 firstColLastRow_frequency=nansum(round(firstColLastRow_allLen2),3);
-% firstColLastRow_probability_spp=firstColLastRow_frequency/size(firstColLastRow_allLen2,3);
-firstColLastRow_probability_spp=firstColLastRow_frequency/sum(sum(nansum(firstColLastRow_allLen2))>0); %modified Set 27, 2020
+firstColLastRow_probability_spp=firstColLastRow_frequency/sum(sum(nansum(firstColLastRow_allLen2))>0);
 end

@@ -5,7 +5,6 @@ function [having_tail_f, firstColLastRow_L_all, firstColLastRow_C_all, firstColL
     having_tail=zeros(1,2);
 
     tailValID=1;
-%     for spID=1:length(spp_tail_dat_L)
         tailPart0=spp_tail_dat_L;
         scale=scale_L_spp;
         scaling_factor0=scaling_factor_listH_L;
@@ -13,14 +12,12 @@ function [having_tail_f, firstColLastRow_L_all, firstColLastRow_C_all, firstColL
             tailPart=tailPart0{sideID};
             scaling_factor=scaling_factor0(sideID);
             if ~isempty(tailPart)
-                %disp(num2str(tID));
                 if nnz(cellfun(@iscell, tailPart))==0
                     tailN=1;
                 else
                     tailN=nnz(cellfun(@iscell, tailPart));
                 end
                 for tID2=1:tailN
-                    %disp(num2str(tID2));
                     tailTail=tailPart{tID2};
                     tailTailBase=tailTail{1};
                     tailTailChar=tailTail{2};

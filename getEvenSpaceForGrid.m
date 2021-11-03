@@ -5,7 +5,7 @@ function evenIntEdge=getEvenSpaceForGrid(seg4Pts,edgePt,numberOfIntervalDegree)
     [segEdgePts1,intPts1] = edgeEvenPt2(edgePt,kPts,numberOfInterval);
     ointPts1=flip([intPts1(1,:);flip(intPts1(2:length(intPts1)-1,:),1);intPts1(length(intPts1),:)],2); %reoder points
     %1-> begining point
-    %2-> in order (from end point to begining)
+    %2-> follows the order (from end point to begining)
     %last ->end point
 
     kPts=[seg4Pts(3,:); seg4Pts(2,:)];

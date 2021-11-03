@@ -1,23 +1,18 @@
 function [having_tail_spp, firstColLastRow_probability, firstColLastRow_Len_summary_median, firstColLastRow_Cur_summary_median, firstColLastRow_Len_summary_IQR, firstColLastRow_Cur_summary_IQR, firstColLastRow_allLen_cm]=summarizeTailInfo_group(all_tail_L, all_tail_R, all_scale_L, all_scale_R, scaling_factor_listH2, mat_res, length_threshold, frequencyThreshold, sampleN)
 %summarize tail information
-%length_threshold=5; %5 px (~0.1mm) the threshold to define a tail
-
 scaling_factor_listH_L=[scaling_factor_listH2(:,1),scaling_factor_listH2(:,3)]; %dorsal and ventral of left hind wing
 scaling_factor_listH_R=[scaling_factor_listH2(:,1),scaling_factor_listH2(:,3)]; %dorsal and ventral of right hind wing
 
 %Flipping the right-hind wing to left-hand side
 all_tail_R_flip=cell(0,length(all_tail_R));
 for spID=1:sampleN
-    %disp(num2str(spID));
     tailPart0=all_tail_R{spID};
     side_tail=cell(0,2);
     for sideID=1:2
-        %disp(num2str(sideID));
         tailPart=tailPart0{sideID};
         tailPart_flip=cell(0,length(tailPart));
         if ~isempty(tailPart)
             for tID2=1:length(tailPart)
-                %disp(num2str(tID2));
                 tailTail=tailPart{tID2};
                 tailTailBase=tailTail{1};
                 tailTailBase_flip=[tailTailBase(:,1), mat_res+2-tailTailBase(:,2)];
@@ -60,6 +55,5 @@ firstColLastRow_allLen2(round(firstColLastRow_allLen2,1)<length_threshold)=NaN; 
 firstColLastRow_allLen2(~isnan(firstColLastRow_allLen2))=1; %replace large value by 1
 firstColLastRow_frequency=nansum(round(firstColLastRow_allLen2),3);
 firstColLastRow_frequency(firstColLastRow_frequency<=frequencyThreshold)=0; %remove outliers
-% firstColLastRow_probability=firstColLastRow_frequency/size(firstColLastRow_allLen2,3);
-firstColLastRow_probability=firstColLastRow_frequency/sum(sum(nansum(firstColLastRow_allLen2))>0); %modified Set 27, 2020
+firstColLastRow_probability=firstColLastRow_frequency/sum(sum(nansum(firstColLastRow_allLen2))>0); 
 end

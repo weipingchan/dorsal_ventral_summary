@@ -13,14 +13,12 @@ function [having_tail_f, firstColLastRow_L_all, firstColLastRow_C_all, firstColL
             tailPart=tailPart0{sideID};
             scaling_factor=scaling_factor0(sideID);
             if ~isempty(tailPart)
-                %disp(num2str(tID));
                 if nnz(cellfun(@iscell, tailPart))==0
                     tailN=1;
                 else
                     tailN=nnz(cellfun(@iscell, tailPart));
                 end
                 for tID2=1:tailN
-                    %disp(num2str(tID2));
                     tailTail=tailPart{tID2};
                     tailTailBase=tailTail{1};
                     tailTailChar=tailTail{2};
@@ -54,6 +52,5 @@ function [having_tail_f, firstColLastRow_L_all, firstColLastRow_C_all, firstColL
         end
     end
 
-%     having_tail_f=having_tail(:,1).*having_tail(:,2);
     having_tail_f=max(having_tail,[],2);
 end

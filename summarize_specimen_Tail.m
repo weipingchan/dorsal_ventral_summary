@@ -10,7 +10,6 @@ for sppID=1:length(in_grid_barcode)
     scale_R_spp=all_scale_ventral{sppID}; %scale_R should be corrected as scale_ventral
     [having_tail, firstColLastRow_probability_spp, firstColLastRow_Len_summary_mean_spp, firstColLastRow_Cur_summary_mean_spp, firstColLastRow_Len_summary_rng_spp, firstColLastRow_Cur_summary_rng_spp, firstColLastRow_allLen_cm_spp]=summarizeTailInfo_spp(spp_tail_dat_L, spp_tail_dat_R, scale_L_spp, scale_R_spp, scaling_factor_spp, mat_res, length_threshold);
     all_tail_info_spp{sppID}={in_grid_barcode{sppID},having_tail, firstColLastRow_probability_spp, firstColLastRow_Len_summary_mean_spp, firstColLastRow_Cur_summary_mean_spp, firstColLastRow_Len_summary_rng_spp, firstColLastRow_Cur_summary_rng_spp, firstColLastRow_allLen_cm_spp};
-%     disp(num2str(sppID));
     if sppID<length(in_grid_barcode) fprintf([num2str(sppID),'-']);, else fprintf([num2str(sppID),'#']);, end;
     if mod(sppID,50)==0
         fprintf('\n');

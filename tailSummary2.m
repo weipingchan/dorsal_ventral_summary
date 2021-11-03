@@ -1,11 +1,4 @@
 function [tarXbin, binA]=tailSummary2(tailBase0,keyPar,baseVal, mat_res)
-%     baseVal=0; %0 for length, 1 for curvature
-%     keyPar=tailTailL;
-% tailBase=[[31.5,1];[32.5,1];[33,2.2]]; %Corner example 1
-% tailBase=[[31.5,1];[33,1.3];[33,2.2]]; %Corner example 2
-% tailBase=[[33,2.2];[33,1.3];[31.5,1]]; %Corner example 3
-% tailBase=[[33,1.1];[33,1.3];[33,3.3]]; %Row example 1
-% tailBase=[[27.5,1];[25,1];[23,1]]; %Column example 1
     tailBase1=tailBase0(tailBase0(:,2)<=1 | tailBase0(:,1)>=mat_res+1,:); %filter tails in wired region
     tailFlag=0;
     if size(tailBase1,1)==1

@@ -1,9 +1,6 @@
 function bandsImg=generate_multi_bands_Img(sidesAllBand_dorsal, sidesAllBand_ventral, target_band_list, reScaleOrNot, avgBarWidth)
-    %target_band_list=[3,6,1,2,9,10];
-%     avgBarWidth=20;
-    bandsImg0=[];
+     bandsImg0=[];
     barImg=[];
-%     meanVal=[];
     for bandID2=1:length(target_band_list)
         bandID=target_band_list(bandID2);
         fd=sidesAllBand_dorsal{1}{bandID};

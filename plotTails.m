@@ -39,7 +39,6 @@ function plotTails(wingMask_meanH2,firstColLastRow_Len_summary_median,firstColLa
 
     %%
     %Move the coordination for plot
-    %bufferW=50; %The ragange from the bar to the edge of image
     botExt=max(firstColLastRow_endPts_err_single_line(:,1));
     leftExt=min(firstColLastRow_endPts_err_single_line(:,2));
     
@@ -96,9 +95,6 @@ function plotTails(wingMask_meanH2,firstColLastRow_Len_summary_median,firstColLa
 
         colorscale_cur_err=rescale(curv_color_err);
 
-%     color1=[[245,164,190];[250,37,98]]/255; %red gradient for probability
-%     color2=[[37,299,250];[2,39,247]]/255; %blue gradient for curvature
-%     color3=[[255,255,255];[0,0,0]]/255; %grey gradient for curvature iqr
     if ~isempty(colorscale_prob)
         color_prob=color1(1,:).*(1-colorscale_prob)+color1(2,:).*(colorscale_prob);
     end
@@ -117,27 +113,18 @@ function plotTails(wingMask_meanH2,firstColLastRow_Len_summary_median,firstColLa
     wingMask_meanH2_adj2(wingMask_meanH2_adj2==0)=0.2; %Change background to grey
     
     %Plot
-%     figure,
     imshow(wingMask_meanH2_adj2);hold on;
     %Plot main tail
     for coID=1:size(firstColLastRow_endPts_single_line_adj,1)
         plotline=[firstColLastRow_startPts_single_line_adj(coID,:);firstColLastRow_endPts_single_line_adj(coID,:)];
         pp=plot(plotline(:,2),plotline(:,1),'Color',color_prob(coID,:),'LineWidth',5);
-%         if round(std(colorscale_prob),4)>0
             pp.Color(4) = colorscale_opacity(coID);
-%         else
-%             pp.Color(4) = 0.8;
-%         end
     end
     %Plot error bar
     for coID=1:size(firstColLastRow_endPts_err_single_line_adj,1)
         plotline=[firstColLastRow_startPts_err_single_line_adj(coID,:);firstColLastRow_endPts_err_single_line_adj(coID,:)];
         pc=plot(plotline(:,2),plotline(:,1),'Color',color_prob(coID,:),'LineWidth',0.5);
-%         if round(std(colorscale_prob),4)>0
             pc.Color(4) = colorscale_opacity(coID);
-%         else
-%             pc.Color(4) = 0.8;
-%         end
     end
     if ~isempty(color_cur) && ~isempty(cur_loc)
         scatter(cur_loc(:,2),cur_loc(:,1), 30, color_cur,'filled');
