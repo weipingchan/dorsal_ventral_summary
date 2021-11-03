@@ -11,7 +11,6 @@ barID=1;
     barcodein=deblank(group_barcodes{matinID0});
     matin=dir(fullfile(matindir,[barcodein,'_*']));
     if ~isempty(matin)
-%         matinname=matin.name;
         in_grid{barID}=matin;
         in_grid_barcode0{barID}=barcodein;
         barID=barID+1;
@@ -77,7 +76,6 @@ gridDatID=1;
         regPtLF=sideDat{1}{1};
         regPtLH=sideDat{3}{1};
         v_d_shapes{sideID}={shpLF,shpRF,shpLH,shpRH,regPtLF,regPtLH};
-        %figure,plot(shpRF(:,1),shpRF(:,2),'r');
     end
     fore_hind_shapes{1}{matinID}={v_d_shapes{1}{1:2},v_d_shapes{2}{1:2}}; %fore wings
     fore_hind_shapes{2}{matinID}={v_d_shapes{1}{3:4},v_d_shapes{2}{3:4}}; %hind wings
@@ -220,17 +218,14 @@ scaling_factor_listH2=reshape(scaling_factor_listH,4, [])';
 %futher calculation between scaling_factor and specimens_included is
 %needed.
 
-%     %Plot on the shape without ornament
+%     %Plot on the shape without ornament (for debugging purpose)
 %     figure, plot(mean_shp_fore(:,1), -mean_shp_fore(:,2), 'r','LineWidth',1);
 %     figure, plot(mean_shp_hind(:,1), -mean_shp_hind(:,2), 'r','LineWidth',1);
 
 disp('Start to calculate grid for mean shapes');
 fore_keys=reshape(vertcat(fore_hind_shapes{3}{:}),[],1);
 hind_keys=reshape(vertcat(fore_hind_shapes{4}{:}),[],1);
-%seg4PtsLF=fore_keys{ceil(shpIDF/2)};  %If the first-run result is wrong, then run this to debug
-%manual define for deBug
-% seg4PtsLF=manual_deBug_define_key_pts(mean_shp_fore, seg4PtsLF, 'F');
-% %if the plot is out of range, run the same manual function twice can help
+
 fore_ref_shp0=fore_shapes{shpIDF}; %Run this first for accuracy
 if mean(fore_ref_shp0(:,1))>0
     fore_ref_shp=fore_ref_shp0;
@@ -239,10 +234,6 @@ else
 end
 seg4PtsLF=[fore_ref_shp(1+2*mat_res,:) ; fore_ref_shp(1+mat_res,:) ; fore_ref_shp(1,:) ; fore_ref_shp(1+3*mat_res,:)]; %Run this first for accuracy
 
-% seg4PtsLH=hind_keys{ceil(shpIDH/2)};  %If the first-run result is wrong, then run this to debug
-%manual define for deBug
-% seg4PtsLH=manual_deBug_define_key_pts(mean_shp_hind, seg4PtsLH, 'H');
-% %if the plot is out of range, run the same manual function twice can help
 hind_ref_shp0=hind_shapes{shpIDH}; %Run this first for accuracy
 if mean(hind_ref_shp0(:,1)) >0
     hind_ref_shp=hind_ref_shp0;
@@ -260,26 +251,6 @@ disp('Remove un-necessary blank regions');
 bufferWidth=10;
 [seg4PtsF2,wingGridsF2,wingMask_meanF2,~]=rmBlankRegionGrids(seg4PtsF,wingGridsF,wingMask_meanF,bufferWidth);
 [seg4PtsH2,wingGridsH2,wingMask_meanH2,~]=rmBlankRegionGrids(seg4PtsH,wingGridsH,wingMask_meanH,bufferWidth);
-%  %plot all grids on Fore wings
-% figure,imshow(logical(wingMask_meanF2));hold on;
-% for i=2:size(wingGridsF2,1)-1
-%     gridPlot=reshape(wingGridsF2(i,:,:),[],2);
-%     plot(gridPlot(:,1),gridPlot(:,2),'r');
-% end
-% for j=2:size(wingGridsF2,2)-1
-%     gridPlot=reshape(wingGridsF2(:,j,:),[],2);
-%     plot(gridPlot(:,1),gridPlot(:,2),'r');
-% end
-% 
-% figure,imshow(wingMask_meanH2);hold on;
-% for i=2:size(wingGridsH2,1)-1
-%     gridPlot=reshape(wingGridsH2(i,:,:),[],2);
-%     plot(gridPlot(:,1),gridPlot(:,2),'r');
-% end
-% for j=2:size(wingGridsH2,2)-1
-%     gridPlot=reshape(wingGridsH2(:,j,:),[],2);
-%     plot(gridPlot(:,1),gridPlot(:,2),'r');
-% end
 
 %%
 %Project sumarry value on mean shape grids
@@ -302,23 +273,15 @@ disp('Start to plot multi-spectral reflectance on grids of mean shapes');
 target_band_list=[3,6,1,2,9,10];
 %Variance Img
 bandsImgVarRescale=generate_multi_bands_Img(sidesAllBandStability_dorsal, sidesAllBandStability_ventral, target_band_list, 1, 2);
-% bandsImgVarOriginal=generate_multi_bands_Img(sidesAllBandStability_dorsal, sidesAllBandStability_ventral, target_band_list, 0, 2);
 bandsImgVarRescaleProj=generate_multi_bands_Img(sidesAllBandsProj_std_dorsal, sidesAllBandsProj_std_ventral, target_band_list, 1, 20);
-% bandsImgVarOriginalProj=generate_multi_bands_Img(sidesAllBandsProj_std_dorsal, sidesAllBandsProj_std_ventral, target_band_list, 0, 20);
 
 %Reflectance Img
 bandsImgRefRescale=generate_multi_bands_Img(sidesAllBandRef_dorsal, sidesAllBandRef_ventral, target_band_list, 1, 2);
-% bandsImgRefOriginal=generate_multi_bands_Img(sidesAllBandRef_dorsal, sidesAllBandRef_ventral, target_band_list, 0, 2);
 bandsImgRefRescaleProj=generate_multi_bands_Img(sidesAllBandsProj_ref_dorsal, sidesAllBandsProj_ref_ventral, target_band_list, 1, 20);
-% bandsImgRefOriginalProj=generate_multi_bands_Img(sidesAllBandsProj_ref_dorsal, sidesAllBandsProj_ref_ventral, target_band_list, 0, 20);
-%bandsImgRefRescaleProjRGB=generate_multi_bands_ImgRGB(sidesAllBandsProj_ref_dorsal, sidesAllBandsProj_ref_ventral, target_band_list, 1);
 
 %SE of reflectance Img (where has more patterns)
 bandsImgSERefRescale=generate_multi_bands_Img(sidesAllBandSERef_dorsal, sidesAllBandSERef_ventral, target_band_list, 1, 2);
-% bandsImgSERefOriginal=generate_multi_bands_Img(sidesAllBandSERef_dorsal, sidesAllBandSERef_ventral, target_band_list, 0, 2);
 bandsImgSERefRescaleProj=generate_multi_bands_Img(sidesAllBandsProj_SE_ref_dorsal, sidesAllBandsProj_SE_ref_ventral, target_band_list, 1, 20);
-% bandsImgSERefOriginalProj=generate_multi_bands_Img(sidesAllBandsProj_SE_ref_dorsal, sidesAllBandsProj_SE_ref_ventral, target_band_list, 0, 20);
-
 
 %Save grid images
 xbands_name='UV ; B ; G ; R ; NIR ; fNIR ; fluor_B ; fluor_G ; fluor_R ; polDiff_B ; polDiff_G ; polDiff_R';
@@ -350,7 +313,6 @@ bufferW=50; %Buffer range from the tip of bar to the edge of image
 rescaleOpacity=1; %rescale opacity to fit 10%-90% range or not
 defaultOpacity=0.2; %the opacity when all probility are the same
 color1=[[245,164,190];[250,37,98]]/255; %red gradient for probability; low to high
-% color1=[[250,37,98];[250,37,98]]/255; %red gradient for probability; low to high
 color2=[[37,299,250];[2,39,247]]/255; %blue gradient for curvature; low to high
 color3=[[255,255,255];[130,130,130]]/255; %grey gradient for curvature iqr; low to high
 
@@ -366,22 +328,7 @@ disp(['saving [', groupName, '_res-',num2str(mat_res),'x',num2str(mat_res),'_spn
 
 tail_all_info={firstColLastRow_probability, firstColLastRow_Len_summary_median, firstColLastRow_Cur_summary_median, firstColLastRow_Len_summary_IQR, firstColLastRow_Cur_summary_IQR, firstColLastRow_allLen_cm};
 %%
-%summarize antenna reflectance and parameters
-disp('Start to summarize antenna information');
-imgformat='png';
-imgresolution=200;
-[ant_final_ref_d, ant_final_ref_v, ant_info, antFlag_d, antFlag_v, ant_d_filter, ant_v_filter]=generate_multi_bands_antenna_Img(ant_ref_d, ant_ref_v, ant_info_d, ant_info_v);
-
-%Plot antenna reflectance
-antImgSize=[500,300];
-avgBarWidth=10;
-bandGatherList={3,[6,7,8],1,2,[15,16,17],[18,19,20]};
-antScaling_factor=100;
-barColor=[123,209,255]/255;
-barColorSD=[200,200,200]/255;
-bolbColor=[35, 105, 255]/255;
-save_antenna_summary_img(antImgSize, avgBarWidth, bandGatherList, antScaling_factor, barColor, barColorSD, bolbColor, ant_final_ref_d, ant_final_ref_v, ant_d_filter, ant_v_filter, antFlag_d, antFlag_v, ant_info, groupName, sampleN, Result_directory, subFolderList, imgformat, imgresolution);
-antenna_all_info={ant_final_ref_d, ant_final_ref_v, ant_info, ant_d_filter, ant_v_filter};
+antenna_all_info={};
    %% 
    disp('Start to save summary information');
 sidesAllBandSummary={{sidesAllBandRef_dorsal, sidesAllBandRef_ventral},{sidesAllBandStability_dorsal, sidesAllBandStability_ventral, sidesAllBandSERef_dorsal, sidesAllBandSERef_ventral},{{wingMask_meanF2,seg4PtsF2,wingGridsF2},{wingMask_meanH2,seg4PtsH2,wingGridsH2}, spp_mean_shpF, spp_mean_shpH}, all_tail_info_spp, tail_all_info, antenna_all_info, {all_scale_dorsal, all_scale_ventral}, in_grid};

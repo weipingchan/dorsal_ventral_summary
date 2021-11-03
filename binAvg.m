@@ -1,13 +1,10 @@
 function [tarXbin,binA]=binAvg(vx,vy)
-%     vx=[0.5;3;5.5];
-%     vy=[0;2.5;0];
     vv=[vx,vy];
     tarXbin=[floor(min(vx)) :1: ceil(max(vx)) ];
     
     m1=(vv(2,2)-vv(1,2))/(vv(2,1)-vv(1,1));
-    %y=m1*(x-vv(1,1))+vv(1,2)
     m2=(vv(3,2)-vv(2,2))/(vv(3,1)-vv(2,1));
-    %y=m2*(x-vv(2,1))+vv(2,2)
+
     binA=zeros(0,length(tarXbin)-1);
     for binID=1:length(tarXbin)-1
         tarX1=tarXbin(binID);

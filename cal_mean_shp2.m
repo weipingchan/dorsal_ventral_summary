@@ -1,11 +1,9 @@
 function [reconstructPts,shpIDr, scaling_factor_list,specimens_included]=cal_mean_shp2(in_shapes,nHarmonic,ConfIntervalKeep)
-%nHarmonic=20;
-%ConfIntervalKeep=70;
 refID=find(cell2mat(cellfun(@(x)size(x,1)>2, in_shapes, 'UniformOutput', false)),1); %Reference img used for registration (find the first non NaN cell)
-% fft_coefficient_matrix=zeros(4,nHarmonic,2);
+
 fft_coefficient_matrix=zeros(4,nHarmonic,1);
-scaling_factor_list=zeros(size(in_shapes,1),1); %New added March 13, 2020
-specimens_included=zeros(size(in_shapes,1),1)+1; %New added March 13, 2020
+scaling_factor_list=zeros(size(in_shapes,1),1); 
+specimens_included=zeros(size(in_shapes,1),1)+1; 
 refImgPt=in_shapes{refID};
 if min(refImgPt(:,1))<0 %prevent the reference image is right wing
     refImgPt=[refImgPt(:,1)-floor(min(refImgPt(:,1))/30)*30+50, refImgPt(:,2)];
@@ -28,7 +26,7 @@ for shpID=1:shpN
         T = transform.T;
         b = transform.b;
         c = repelem(transform.c(1,:),length(movEdgePt),1);
-        %cRef = repelem(transform.c(1,:),length(movingRefPt),1);
+        
 
         if T(1,1)<0.71 %Constrain the rotating angle between -45d and 45d
             T=[[1,0];[0,1]]; %Don't rotate
@@ -36,10 +34,10 @@ for shpID=1:shpN
         end
 
         newMovEdgePtReScale=double(b*movEdgePt*T + c);
-        %newMovRefPtReScale=double(b*movingRefPt*T + cRef);
+        
         nWingMaskReScale = poly2mask(newMovEdgePtReScale(:,1),newMovEdgePtReScale(:,2),round(max(refImgPt(:,2))*1.2),round(max(refImgPt(:,1))*1.2));
         %figure,imshow(nWingMaskReScale);
-        scaling_factor_list(shpID)=b; %New added March 13, 2020
+        scaling_factor_list(shpID)=b; 
 
         try
             wingreduce=nWingMaskReScale;
@@ -47,9 +45,7 @@ for shpID=1:shpN
             chain = mk_chain(flip(wingreduce)); %Flip the mask to counter the flipping effect in the following process
 
             [chainCode] = chaincode(chain); %Derive the chain code of the shape
-            %chainBeginPt=[chainCode.x0,chainCode.y0];
             maskChainCode=transpose(chainCode.code);
-
 
               for i = 1 : nHarmonic
                     harmonic_coeff = calc_harmonic_coefficients(maskChainCode, i);
@@ -61,19 +57,15 @@ for shpID=1:shpN
             fft_coeffcient=[ca ; cb ; cc ; cd];
             fft_coefficient_matrix(:,:,fftdatID)=fft_coeffcient;
             fftdatID=fftdatID+1;
-            %disp(num2str(shpID));
         catch
             disp(['shpID: ',num2str(shpID),' went wrong, so it is neglected'])
             specimens_included(shpID)=0;
         end
-        %disp(num2str(shpID));
     else
         disp(['shpID: ',num2str(shpID),' is not on the preference list, so it is neglected'])
         scaling_factor_list(shpID)=NaN;
     end
 end
-
-% fft_coefficient_matrix=fft_coefficient_matrix(:,:,nanmean(fft_coefficient_matrix0>0, [2,1])~=0); %remove empty layers
 
 fft_coefficient_mean=trimmean(fft_coefficient_matrix,100-ConfIntervalKeep,3); %Exclude the outliers and keep only %80.
 shpIDr=1;

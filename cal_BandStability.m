@@ -3,14 +3,11 @@ function sidesAllBandStability=cal_BandStability(fore_hind_grids_dorsal)
 wingPartLoc=[1,4];
 sidesAllBandStability=cell(0,2);    
 for wingID=1:2 %fore hind wing
-%     disp(['wingID: ',num2str(wingID)]);
     allBandStability=cell(0,10);    
     for bandID=1:10
-%         disp(['bandID: ',num2str(bandID)]);
         detDat=fore_hind_grids_dorsal{1}{wingPartLoc(wingID)}{bandID};
         if size(detDat,3)==1
             for matID=1:length(fore_hind_grids_dorsal)
-%                 disp(['matID: ',num2str(matID)]);
                 meanRefDat=fore_hind_grids_dorsal{matID}{wingPartLoc(wingID)}{bandID};
                     if matID==1
                         bandDatAll=meanRefDat;
