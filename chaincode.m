@@ -16,7 +16,7 @@ function [cc] = chaincode(b,unwrap)
 %             np is the number of pixels and each element is a pair (y,x) of
 %             pixel coordinates
 %   unwrap  - (optional, default=false) unwrap code;
-%             if enable phase inversions are eliminated
+%             if enabled phase inversions are eliminated
 %            
 %
 %   OUTPUT:
@@ -63,7 +63,7 @@ end
 % compute dx,dy  by a circular shift on coords arrays by 1 element
 sb=circshift(b,[-1 0]);
 delta=sb-b;
-% check if boundary is close, if not cut last element
+% check if boundary is closed, if not cut last element
 if abs(delta(end,1))>1 || abs(delta(end,2))>1
     delta=delta(1:(end-1),:);
 end
@@ -78,7 +78,7 @@ if size(n8c,1)>0
 end
 
 
-% convert dy,dx pairs to scalar indexes thinking to them (+1) as base-3 numbers
+% convert dy,dx pairs to scalar indices thinking to them (+1) as base-3 numbers
 % according to: idx=3*(dy+1)+(dx+1)=3dy+dx+4 (adding 1 to have idx starting
 % from 1)
 % Then use a mapping array cm

@@ -18,12 +18,12 @@ function [tarXbin,binA]=binAvg(vx,vy)
             tarY2=m1*( tarX2-vv(1,1))+vv(1,2);
             
             tarA=(tarY1+tarY2)*abs(tarX2-tarX1)/2;
-        elseif tarX1>vx(2) %Both value greater than the tip pt
+        elseif tarX1>vx(2) %Both values greater than the tip pt
             tarY1=m2*( tarX1-vv(2,1))+vv(2,2);
             tarY2=m2*( tarX2-vv(2,1))+vv(2,2);
             
             tarA=(tarY1+tarY2)*abs(tarX2-tarX1)/2;
-        else %Values on both side of the tip pt
+        else %Values on both sides of the tip pt
             tarY1=m1*( tarX1-vv(1,1))+vv(1,2);
             tarY2=m2*( tarX2-vv(2,1))+vv(2,2);
             

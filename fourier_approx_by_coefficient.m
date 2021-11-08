@@ -1,6 +1,6 @@
 function reconstructPts = fourier_approx_by_coefficient(refImgPt, fft_coefficient_mean,n_pts)
 
-% This function will generate position coordinates of fourier approximation of 
+% This function will generate position coordinates of Fourier approximation of 
 % chain code (ai).Number of harmonic elements (n), and number of points for 
 % reconstruction (m) must be specified.
 

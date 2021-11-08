@@ -8,7 +8,7 @@ function [tail_dat_spp, tail_dat_L, tail_dat_R]=tail_summary(sppmat, spp_tail_pr
         tailFlag=0;
         tailDat=sppmat{5}{tailID};
         tailDat=tailDat(~cellfun('isempty',tailDat));
-        if ~isempty(tailDat) && spp_tail_preference_list(tailID)==1 %if the hind wing is accepted in the preference list
+        if ~isempty(tailDat) && spp_tail_preference_list(tailID)==1 %if the hindwing is accepted in the preference list
             if iscell(tailDat{1})
                 tmp_tail_dat=cell(0,1);
                 for tailPartID=1:length(tailDat)

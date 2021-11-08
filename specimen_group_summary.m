@@ -14,7 +14,7 @@ dorsal_ventral_summary(grid_mat_directory, Code_directory, Result_directory, gro
 %%
 %To run a specific group by its group number
 fieldID = 6;
-%%%%%%%Provide the group name, which is listed in the json group file%%%%%%%
+%%%%%%%Provide the group name that is listed in the json group file%%%%%%%
 %Create result folders
 subFolderList={'summary_visualization','summary_matrices'};
 for fold=1:length(subFolderList)
@@ -30,18 +30,18 @@ disp('The file including preference information is found.');
 group_list=loadjson(fullfile(Code_directory,group_list_name));
 group_list_field=fieldnames(group_list);
 
-group_barcodes=remove_duplicate_strings(group_list.(group_list_field{fieldID})); %Removeing duplicates
+group_barcodes=remove_duplicate_strings(group_list.(group_list_field{fieldID})); %Removing duplicates
 groupName=strrep(group_list_field{fieldID},'0x2D_','');
     try
         grid_summary2(grid_mat_directory, Result_directory, subFolderList, groupName, group_barcodes, labelfile);
     catch
-        disp(['[ ',groupName,' ] did NOT processed sucessfully.']);
+        disp(['[ ',groupName,' ] did NOT process sucessfully.']);
     end
 
 %%
 %To run a specific group by its group name
 groupName='NymPap';
-%%%%%%%Provide the group name, which is listed in the json group file%%%%%%%
+%%%%%%%Provide the group name that is listed in the json group file%%%%%%%
 %Create result folders
 subFolderList={'summary_visualization','summary_matrices'};
 for fold=1:length(subFolderList)

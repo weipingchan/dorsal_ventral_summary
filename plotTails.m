@@ -8,7 +8,7 @@ function plotTails(wingMask_meanH2,firstColLastRow_Len_summary_median,firstColLa
 
     firstColLastRow_slp=bsxfun(@minus, firstColLastRow_midPts_single_line,cen_meanH2);
 
-    firstColLastRow_vector=firstColLastRow_slp./sqrt(firstColLastRow_slp(:,1).^2+firstColLastRow_slp(:,2).^2); %This is the vector based on the length unit =1 of the thrid side
+    firstColLastRow_vector=firstColLastRow_slp./sqrt(firstColLastRow_slp(:,1).^2+firstColLastRow_slp(:,2).^2); %This is the vector based on the length unit =1 of the third side
 
 
     firstColLastRow_Len_summary_single_line=reshape(firstColLastRow_Len_summary_median,[],1);
@@ -17,7 +17,7 @@ function plotTails(wingMask_meanH2,firstColLastRow_Len_summary_median,firstColLa
     firstColLastRow_Len_summary_IQR_single_line=reshape(firstColLastRow_Len_summary_IQR,[],1)/2; %Get half IQR
     firstColLastRow_Cur_summary_IQR_single_line=reshape(firstColLastRow_Cur_summary_IQR,[],1)/2; %Get half IQR
     
-    %inhibt those location having only one record (no IQR)
+    %inhibit those locations with only one record (no IQR)
     firstColLastRow_Len_summary_single_line(firstColLastRow_Len_summary_IQR_single_line==0)=0;
     firstColLastRow_probability_single_line(firstColLastRow_Len_summary_IQR_single_line==0)=0;
     firstColLastRow_Cur_summary_single_line(firstColLastRow_Len_summary_IQR_single_line==0)=0;
@@ -110,7 +110,7 @@ function plotTails(wingMask_meanH2,firstColLastRow_Len_summary_median,firstColLa
     end
 
     wingMask_meanH2_adj2=wingMask_meanH2_adj;
-    wingMask_meanH2_adj2(wingMask_meanH2_adj2==0)=0.2; %Change background to grey
+    wingMask_meanH2_adj2(wingMask_meanH2_adj2==0)=0.2; %Change background to gray
     
     %Plot
     imshow(wingMask_meanH2_adj2);hold on;

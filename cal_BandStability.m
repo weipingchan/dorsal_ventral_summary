@@ -2,7 +2,7 @@ function sidesAllBandStability=cal_BandStability(fore_hind_grids_dorsal)
 %Derive the most variant region
 wingPartLoc=[1,4];
 sidesAllBandStability=cell(0,2);    
-for wingID=1:2 %fore hind wing
+for wingID=1:2 %fore-hindwing
     allBandStability=cell(0,10);    
     for bandID=1:10
         detDat=fore_hind_grids_dorsal{1}{wingPartLoc(wingID)}{bandID};
@@ -37,7 +37,7 @@ for wingID=1:2 %fore hind wing
 end
 
 %Data structure generate by the loop above:
-%{1}=fore wing
-%{2}= hind wing
+%{1}=forewing
+%{2}= hindwing
     %{}{n}=the variance/ stability of bandID (the order is the same as the matrix read in)
 end
