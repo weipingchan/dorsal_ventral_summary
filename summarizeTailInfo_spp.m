@@ -42,7 +42,7 @@ firstColLastRow_allLen=cat(3,firstColLastRow_L_allLen,firstColLastRow_R_allLen);
 firstColLastRow_allLen_cm_spp=cat(3,firstColLastRow_L_allLen_cm,firstColLastRow_R_allLen_cm);
 firstColLastRow_allCur=cat(3,firstColLastRow_L_allCur,firstColLastRow_R_allCur);
 
-firstColLastRow_allLen2=firstColLastRow_allLen; %Preserve dataset for further calculation
+firstColLastRow_allLen2=firstColLastRow_allLen; %Preserve dataset for further calculations
 
 firstColLastRow_allLen(round(firstColLastRow_allLen,1)<length_threshold)=NaN; %replace small value with NaN, and neglect those with length less than 5 px (~0.1mm)
 firstColLastRow_allCur(round(firstColLastRow_allCur,2)==0)=NaN; %replace 0 with NaN
@@ -58,7 +58,7 @@ firstColLastRow_Cur_summary_rng_spp(isnan(firstColLastRow_Cur_summary_rng_spp))=
 
 %tail frequency
 firstColLastRow_allLen2(round(firstColLastRow_allLen2,1)<length_threshold)=NaN; %replace small value with NaN, and neglect those with length less than 5 px (~0.1mm)
-firstColLastRow_allLen2(~isnan(firstColLastRow_allLen2))=1; %replace large value with 1
+firstColLastRow_allLen2(~isnan(firstColLastRow_allLen2))=1; %replace large values with 1
 firstColLastRow_frequency=nansum(round(firstColLastRow_allLen2),3);
 firstColLastRow_probability_spp=firstColLastRow_frequency/sum(sum(nansum(firstColLastRow_allLen2))>0);
 end

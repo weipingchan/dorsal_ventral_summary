@@ -8,9 +8,9 @@ function [chain] = mk_chain(img)
 %get first connected component
 [start_r,start_c] = find(img,1,'first');
 
-%as bwtraceboundary needs an intial direction, choose the 
+%as bwtraceboundary needs an initial direction, choose the 
 %first one that works
-%The order make sure the outline is discovered clockwise
+%The order make sure the outline works in a clockwise direction
 
 if img(start_r-1,start_c) == 1
     dir = 'N';

@@ -58,7 +58,7 @@ group_list=loadjson(fullfile(Code_directory,group_list_name));
 group_list_field=fieldnames(group_list);
 
 fieldID=find(strcmp(group_list_field,groupName));
-group_barcodes=remove_duplicate_strings(group_list.(group_list_field{fieldID})); %Removing duplicates
+group_barcodes=remove_duplicate_strings(group_list.(group_list_field{fieldID})); %Removeing duplicates
 groupName=strrep(group_list_field{fieldID},'0x2D_','');
 grid_summary2(grid_mat_directory, Result_directory, subFolderList, groupName, group_barcodes, labelfile);
 

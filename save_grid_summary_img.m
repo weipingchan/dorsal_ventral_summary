@@ -1,5 +1,5 @@
 function save_grid_summary_img(bandsImgVarRescale, bandsImgVarRescaleProj, bandsImgRefRescale, bandsImgRefRescaleProj, bandsImgSERefRescale, bandsImgSERefRescaleProj, groupName, mat_res, sampleN, xbands_name, y_label, boldLineList, Result_directory, subFolderList, imgformat, imgresolution)
-%stability accross specimens
+%stability across specimens
 visoutname=fullfile(Result_directory,'dorsal_ventral_map',subFolderList{1},[groupName, '_res-',num2str(mat_res),'x',num2str(mat_res),'_n-',num2str(sampleN),'_std_rescale','_Grids.',imgformat]);
 save_multi_band_grid_img(bandsImgVarRescale, visoutname, jet, mat_res, xbands_name, y_label, boldLineList, 'grid', [], imgformat, imgresolution);
 disp(['saving [', groupName,'_res-',num2str(mat_res),'x',num2str(mat_res),'_n-',num2str(sampleN),'_std_rescale','_Grids.',imgformat,']']);

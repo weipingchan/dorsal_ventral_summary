@@ -22,7 +22,7 @@ barID=1;
  end
   fprintf('\n');
 in_grid_barcode=remove_duplicate_strings(in_grid_barcode0);
-if isempty(in_grid_barcode) disp('none corresponding matrix is found');, end;
+if isempty(in_grid_barcode) disp('no corresponding matrix is found');, end;
 group_preference_list= labelfile(ismember(labelfile.barcode,in_grid_barcode),:); %Extract the preference list only related to the barcodes in the group
 
 sampleN=length(in_grid);
@@ -129,7 +129,7 @@ gridDatID=1;
         end
         gridDatID=gridDatID+1;
     else
-        disp(['No grided reflectacne data in No. ',num2str(matinID),' [',matinname,']']);
+        disp(['No gridded reflectacne data in No. ',num2str(matinID),' [',matinname,']']);
     end
  end
 
@@ -207,7 +207,7 @@ disp(['Variable [ConfIntervalKeepF]: ',num2str(round(ConfIntervalKeepF,2))]);
 disp(['Variable [ConfIntervalKeepH]: ',num2str(round(ConfIntervalKeepH,2))]);
 [mean_shp_fore, shpIDF,~, specimens_includedF]=cal_mean_shp2(fore_shapes,nHarmonic,ConfIntervalKeepF);
 [mean_shp_hind, shpIDH, scaling_factor_listH, specimens_includedH]=cal_mean_shp2(hind_shapes,nHarmonic,ConfIntervalKeepH);
-disp('Mean shapes of fore wing and hind wings are done');
+disp('Mean shapes of forewing and hindwings are done');
 
 scaling_factor_listH2=reshape(scaling_factor_listH,4, [])';
 %row: specimen order; col1: dorsal LH; col 2: dorsal RH; col 3: ventral LH; col 4: ventral RH;
@@ -314,7 +314,7 @@ rescaleOpacity=1; %rescale opacity to fit 10%-90% range or not
 defaultOpacity=0.2; %the opacity when all probabilities are the same
 color1=[[245,164,190];[250,37,98]]/255; %red gradient for probability; low to high
 color2=[[37,299,250];[2,39,247]]/255; %blue gradient for curvature; low to high
-color3=[[255,255,255];[130,130,130]]/255; %grey gradient for curvature iqr; low to high
+color3=[[255,255,255];[130,130,130]]/255; %gray gradient for curvature iqr; low to high
 
 imgformat='png';
 imgresolution=200;
@@ -404,8 +404,8 @@ sidesAllBandSummary={{sidesAllBandRef_dorsal, sidesAllBandRef_ventral},{sidesAll
             %{6}{3}{}(2) = Antennae width (mm)
             %{6}{3}{}(3) = Bulb width (mm)
             %{6}{3}{}(4) = Curviness (unitless)
-    %{6}{4} = filter indicating those dorsal-side antennae beeing included in the analysis; 0: excluded; 1: included
-    %{6}{5} = filter indicating those dorsal-side antennae beeing included in the analysis; 0: excluded; 1: included
+    %{6}{4} = filter indicating those dorsal-side antennae being included in the analysis; 0: excluded; 1: included
+    %{6}{5} = filter indicating those dorsal-side antennae being included in the analysis; 0: excluded; 1: included
 %{7} = scale length
     %{7}{1} = dorsal
     %{7}{2} = ventral

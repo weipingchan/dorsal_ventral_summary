@@ -2,7 +2,7 @@ function [dims, maxlevel, count] = nestbracket2dim(str,brackets)
 %
 % [dims, maxlevel, count] = nestbracket2dim(str,brackets)
 %
-% Extracting the dimension vector of a JSON string formatted array
+% Extract the dimension vector of a JSON string formatted array
 % by analyzing the pairs of opening/closing bracket tokens; this function 
 % only returns valid dimension information when the array is an N-D array
 %
@@ -10,10 +10,10 @@ function [dims, maxlevel, count] = nestbracket2dim(str,brackets)
 %
 % input:
 %      str: a string-formatted JSON array using square-brackets for enclosing
-%           elements and comma as separators between elements
+%           elements and commas as separators between elements
 %      brackets: (optional), a string of length 2, with the first character
 %               being the opening token and the 2nd being the closing token.
-%               if not given, brackets is set to '[]' to find matching square-brackets;
+%               if not given, brackets are set to '[]' to find matching square-brackets;
 %               for example, '{}' looks for a matching closing curly-bracket in
 %               the string key(pos(startpos,:end))
 %

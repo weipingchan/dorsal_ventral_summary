@@ -12,7 +12,7 @@ function [endpos, maxlevel] = match_bracket(str,startpos,brackets)
 %               startpos must be at least 1 greater than the opening bracket position
 %      brackets: (optional), a string of length 2, with the first character
 %               being the opening token and the 2nd being the closing token.
-%               if not given, brackets is set to '[]' to find matching square-brackets;
+%               if not given, brackets are set to '[]' to find matching square-brackets;
 %               for example, '{}' looks for a matching closing curly-bracket in
 %               the string key(pos(startpos,:end))
 %
