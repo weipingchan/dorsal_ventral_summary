@@ -1,9 +1,18 @@
-# dorsal_ventral_summary
+# dorsal ventral summary
  summarize reflectance and shape according to wing grids
 Begin with 'generate_group_list_v2.nb' which converts the group table from csv format to json format. An alternative way is manually preparing a json file.
 Once we have the group json file, we open 'specimen_group_summary.m' and specify the parameters before execute it.
 
-# Data structure of output matrix (also provided in the corresponding scripts):
+Please find the article describing the application of this script below (DOI: 10.1038/s42003-022-04282-z):
+(https://www.nature.com/articles/s42003-022-04282-z)
+
+Please find the link for the corresponding protocol:
+(https://www.protocols.io/private/F3292DF1FE0211EB878B0A58A9FEAC02)
+
+Please cite this work as:
+Chan, W-P., Rabideau Childers, R., Ashe, S. *et al.* A high-throughput multispectral imaging system for museum specimens. *Commun Biol* **5**, 1318 (2022).
+
+## Data structure of output matrix (also provided in the corresponding scripts):
 ```
   %{1}= average reflectance
       %{1}{1} = dorsal side
